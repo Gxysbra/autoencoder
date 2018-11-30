@@ -114,7 +114,7 @@ def denosing_autoencoder():
 
 def train_autoencoder(autoencoder_list, x_train, x_test, y_train=None, y_test=None, optimizer='adam', loss='binary_crossentropy', epochs=50, batch_size=256):
     autoencoder_list[-1].compile(optimizer=optimizer, loss=loss)
-    if y_train:
+    if y_train != None:
         autoencoder_list[-1].fit(x_train, y_train, epochs=epochs, batch_size=batch_size, shuffle=True, validation_data=(x_test, y_test))
     else:
         autoencoder_list[-1].fit(x_train, x_train, epochs=epochs, batch_size=batch_size, shuffle=True, validation_data=(x_test, x_test))
@@ -127,7 +127,7 @@ def plot_imgs_contrast(imgs, crow, name, show=True):
     fig = plt.figure()
     for i in range(crow):
         for j in range(len(imgs)):
-            ax = plt.subplot(3, crow, i+1+j*crow)
+            ax = plt.subplot(len(imgs), crow, i+1+j*crow)
             n = imgs[j][i].shape
             if np.prod(n) == 784:
                 plt.imshow(imgs[j][i].reshape(28, 28))
@@ -174,7 +174,7 @@ def denosing_autoencoder_example(x_train=None, x_test=None, show_figure=True, no
         x_train, x_test = load_mnist_dataset(True)
     x_train_noisy = x_train + noise_factor * np.random.normal(loc=0.0, scale=1.0, size=x_train.shape)
     x_test_noisy = x_test + noise_factor * np.random.normal(loc=0.0, scale=1.0, size=x_test.shape)
-    plot_imgs_contrast((x_test, x_test_noisy), 10, show=show_figure)
+    plot_imgs_contrast((x_test, x_test_noisy), 10, 'noisy_imgs.png', show=show_figure)
     encoder, decoder, autoencoder = denosing_autoencoder()
-    imgs, autoencoder_list = train_autoencoder((encoder, decoder, autoencoder), x_train_noisy, x_test_noisy, x_train, x_test, epochs=10)
+    imgs, autoencoder_list = train_autoencoder((encoder, decoder, autoencoder), x_train_noisy, x_test_noisy, x_train, x_test, epochs=3)
     plot_imgs_contrast(list(x_test)+list(imgs), 10, 'denosing_autoencoder.png', show=show_figure)
