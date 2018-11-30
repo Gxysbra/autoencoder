@@ -174,6 +174,8 @@ def denosing_autoencoder_example(x_train=None, x_test=None, show_figure=True, no
         x_train, x_test = load_mnist_dataset(True)
     x_train_noisy = x_train + noise_factor * np.random.normal(loc=0.0, scale=1.0, size=x_train.shape)
     x_test_noisy = x_test + noise_factor * np.random.normal(loc=0.0, scale=1.0, size=x_test.shape)
+    x_train_noisy = np.clip(x_train_noisy, 0., 1.)
+    x_test_noisy = np.clip(x_test_noisy, 0., 1.)
     plot_imgs_contrast((x_test, x_test_noisy), 10, 'noisy_imgs.png', show=show_figure)
     encoder, decoder, autoencoder = denosing_autoencoder()
     imgs, autoencoder_list = train_autoencoder((encoder, decoder, autoencoder), x_train_noisy, x_test_noisy, x_train, x_test, epochs=3)
