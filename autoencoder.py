@@ -167,7 +167,7 @@ def convolutional_autoencoder_example(x_train=None, x_test=None, show_figure=Tru
         x_train, x_test = load_mnist_dataset(True)
     encoder, decoder, autoencoder = convolutional_autoencoder()
     imgs, autoencoder_list = train_autoencoder((encoder, decoder, autoencoder), x_train, x_test, epochs=10)
-    plot_imgs_contrast(list(x_test)+list(imgs), 10, 'convolutional_autoencoder.png', show=show_figure)
+    plot_imgs_contrast([x_test]+list(imgs), 10, 'convolutional_autoencoder.png', show=show_figure)
     
 def denosing_autoencoder_example(x_train=None, x_test=None, show_figure=True, noise_factor=0.5):
     if x_train == None:
@@ -179,4 +179,4 @@ def denosing_autoencoder_example(x_train=None, x_test=None, show_figure=True, no
     plot_imgs_contrast((x_test, x_test_noisy), 10, 'noisy_imgs.png', show=show_figure)
     encoder, decoder, autoencoder = denosing_autoencoder()
     imgs, autoencoder_list = train_autoencoder((encoder, decoder, autoencoder), x_train_noisy, x_test_noisy, x_train, x_test, epochs=3)
-    plot_imgs_contrast(list(x_test)+list(imgs), 10, 'denosing_autoencoder.png', show=show_figure)
+    plot_imgs_contrast([x_test]+list(imgs), 10, 'denosing_autoencoder.png', show=show_figure)
