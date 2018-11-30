@@ -1,0 +1,1 @@
+autoencoder.py accomplished some instances of autoencoders such as sparsity autoencoder, deep autoencoder, convolutional autoencoder and so on which based on MNIST datasets, followed the tutorial of Building Autoencoders in Keras on https://blog.keras.io/building-autoencoders-in-keras.html
